@@ -1,0 +1,57 @@
+<ol class="breadcrumb">
+    <li class="active">Home</a></li>
+</ol>
+
+<br/>
+
+<%- partial ('partials/statusmessage.ejs') %>
+
+<h2>Manage Courses</h2>
+<button class="btn btn-success" id="addCourseButton">Add Course</button>
+<table class="table table-striped table-bordered" id="courseTable" style="width:100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Subject</th>
+      <th>Course Number</th>
+      <th>Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% if(typeof courses != "undefined" && courses.length > 0){ %>
+    <% courses.forEach(function(course){ %>
+      <tr>
+        <td><%= course.class_id %></td>
+        <td><%= course.subject %></td>
+        <td><%= course.course%></td>
+        <td class="text-center">
+          <button class="btn btn-primary" id="editButtonCourse" data-courseid="<%= course.class_id %>">edit</button>
+          <button class="btn btn-danger" id="deleteButtonCourse" data-courseid="<%= course.class_id %>">delete</button>
+        </td>
+      </tr>
+    <% }) %>
+  <% } %>
+  </tbody>
+</table>
+
+<div style="display: none;" id="deleteConfirmCourse">Are you sure you want to delete this record?</div>
+
+<form action="/delete_class" method="POST" style="display: none;" id="deleteformCourse">
+  <input type="hidden" name="class_id" value="course">
+</form>
+
+<form style="display: none;" action="" method="POST" class="form-horizontal" id="manageCourseForm">
+  <input type="hidden" name="class_id">
+  <div class="form-group">
+    <label for="subject" class="col-sm-2 control-label">Subject</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="course" class="col-sm-2 control-label">Course Number</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="course" name="course"  placeholder="Course Number" required>
+    </div>
+  </div>
+</form>
